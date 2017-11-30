@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="董书华" />
+    <title>学生管理系统 - 首页</title>
+    <link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.min.css">
+    <script src="libs/jquery.js"></script>
+    <script src="libs/jquery.cookie.js"></script>
+    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="libs/layer/layer.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">学生管理系统 - 首页</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="/index.html">
+                            首页
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            用户管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/user/add">添加用户</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/user/list.html">用户列表</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            班级管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/class/add">添加班级</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/class/list.html">班级列表</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            学生管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/student/add">添加学生</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/student/list.html">学生列表</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="dropdown">
+                        <a href="/api/logout">
+                            退出
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <p>
+            学生管理系统，是一个简易的项目，旨在让学生练习如下知识点：
+        </p>
+        <p>
+            1. 学习使用mongodb数据库的命令<br>
+            2. 学习使用mongoose模块的基本的增删查改方法<br>
+            3. 学习使用nodejs进行一般化开发的步骤<br>
+            4. 学习使用jquery发起ajax请求<br>
+            5. 学习使用layer.js插件库<br>
+            6. 练习bootstrap ui框架<br>
+            ......
+        </p>
+    </div>
+    <script src="/scripts/index.js"></script>
+</body>
+
+</html>

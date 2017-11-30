@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="董书华" />
+    <title>学生管理系统 - 用户列表</title>
+    <link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.min.css">
+    <script src="/libs/jquery.js"></script>
+    <script src="/libs/jquery.cookie.js"></script>
+    <script src="/libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/libs/layer/layer.js"></script>
+    <script src="/libs/template.js"></script>
+    <style>
+    .toolbar{
+        padding: 10px 15px;
+    }
+    .table{
+        margin-bottom: 0;
+    }
+    .table span{
+        cursor: pointer;
+    }
+    .red-color{
+        color: red;
+    }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">学生管理系统 - 用户列表</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="/index.html">
+                            首页
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            用户管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/user/add">添加用户</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/user/list.html">用户列表</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            班级管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/class/add">添加班级</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/class/list.html">班级列表</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            学生管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/student/add">添加学生</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/student/list.html">学生列表</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="/api/logout">
+                            退出
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container toolbar">
+        <button class="btn btn-success" onclick="location.href='/user/add'">添加用户</button>
+        <button class="btn btn-warning" data-toggle="modal" data-target="#searchModal">
+            <span class="glyphicon glyphicon-search"></span> 搜索
+        </button>
+    </div>
+
+    <div class="container" id="showList">
+    </div>
+
+    <script id="userList" type="text/html">
+    
+        <table class="table table-bordered">
+            <tr>
+                <th>帐号</th>
+                <th>密码</th>
+                <th>状态</th>
+                <th>创建日期</th>
+                <th>更新日期</th>
+                <th colspan="2" class="text-center">操作</th>
+            </tr>
+            {{each users as user}}
+            <tr>
+                <td>{{user.loginname}}</td>
+                <td>{{user.password}}</td>
+                <td class="{{user.status == '0' ? '' : 'red-color'}}">{{user.status == '0' ? '正常' : '已删除'}}</td>
+                <td>{{user.createtime | dateFormat:'yyyy-MM-dd hh:mm'}}</td>
+                <td>{{user.lastupdatetime | dateFormat:'yyyy-MM-dd hh:mm'}}</td>
+                <td class="text-center">
+                    <span class="glyphicon glyphicon-edit" onclick="location.href='/user/edit/{{user._id}}'"></span>
+                </td>
+                <td class="text-center">
+                    <span class="glyphicon glyphicon-trash" onclick="removeData('{{user._id}}', '{{user.loginname}}')"></span>
+                </td>
+            </tr>
+            {{/each}}
+        </table>
+
+        <nav>
+            <ul class="pagination">
+                <li class="{{currentPage <= 1 ? 'disabled' : ''}}">
+                    <a onclick="showPage({{currentPage-1}}, {{pageCount}})">上一页</a>
+                </li>
+                
+                {{each pages as page}}
+                <li class="{{currentPage == page ? 'active' : ''}}">
+                    <a onclick="showPage({{page}}, {{pageCount}})">{{page}}</a>
+                </li>
+                {{/each}}
+                
+                <li class="{{currentPage >= pageCount ? 'disabled' : ''}}">
+                    <a onclick="showPage({{currentPage+1}}, {{pageCount}})">下一页</a>
+                </li>
+            </ul>
+        </nav>
+    
+    </script>
+
+
+    <!-- 搜索模态框 -->
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+                <h4 class="modal-title">用户信息搜索</h4>
+            </div>
+            <div class="modal-body">
+                <form id="searchForm" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="name" class="col-sm-3 control-label">帐号：</label>
+                        <div class="col-sm-4">
+                            <input type="text" id="name" name="name" class="form-control" placeholder="请输入帐号">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="status0" class="col-sm-3 control-label">状态：</label>
+                        <div class="col-sm-5">
+                            <label class="radio-inline">
+                                <input type="radio" name="status" id="status0" value="" checked> 不限
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="status" id="status1" value="0"> 正常
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="status" id="status2" value="1"> 删除
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    &#x3000;关闭&#x3000;
+                </button>
+                <button onclick="showPage(1,1)" type="button" class="btn btn-success" data-dismiss="modal">
+                    &#x3000;搜索&#x3000;
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 删除确认模态框 -->
+    <div class="modal fade" id="removeModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">确认要删除吗？</h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger">&#x3000;确定&#x3000;</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">&#x3000;取消&#x3000;</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/scripts/templatehelper.js"></script>
+    <script src="/scripts/userlist.js"></script>
+</body>
+
+</html>

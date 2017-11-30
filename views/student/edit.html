@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="董书华" />
+    <title>学生管理系统 - 编辑学生</title>
+    <link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.min.css">
+    <script src="/libs/jquery.js"></script>
+    <script src="/libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/libs/layer/layer.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">学生管理系统 - 编辑学生</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="/index.html">
+                            首页
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            用户管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/user/add">添加学生</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/user/list.html">用户列表</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            班级管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/class/add">添加班级</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/class/list.html">班级列表</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            学生管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/student/add">添加学生</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/student/list.html">学生列表</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="/api/logout">
+                            退出
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <form role="form" action="/api/student/edit/{{stu.id}}" method="POST">
+            <legend>编辑学生</legend>
+
+            <div class="form-group">
+                <label for="name">姓名：</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{stu.name}}" placeholder="请输入学生姓名">
+            </div>
+
+            <div class="form-group">
+                <label for="sex0">性别：</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="sex" id="sex0" value="男" {{ stu.sex == '男' ? 'checked' : ''}}> 男
+                    </label>
+                    <label>
+                        <input type="radio" name="sex" id="sex1" value="女" {{ stu.sex == '女' ? 'checked' : ''}}> 女
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="age">年龄：</label>
+                <input type="number" class="form-control" id="age" name="age" value="{{stu.age}}" placeholder="请输入年龄">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">手机号：</label>
+                <input type="text" class="form-control" id="phone" name="phone" value="{{stu.phone}}" placeholder="请输入手机号">
+            </div>
+
+            <div class="form-group">
+                <label for="classid"> 所属班级</label>
+                <select id="classid" name="classid" class="form-control">
+                    {{each stu.classes as c}}
+                    <option value="{{c.id}}" {{ c.id == stu.classid.id ? 'selected' : ''}}>{{c.name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="status1">状态：</label>
+                <div class="radio">
+                    <label>
+                    <input type="radio" name="status" id="status1" value="0" {{ stu.status == '0' ? 'checked' : ''}}> 正常
+                </label>
+                    <label>
+                    <input type="radio" name="status" id="status2" value="1" {{ stu.status == '1' ? 'checked' : ''}}> 禁用
+                </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">保存</button>
+        </form>
+
+    </div>
+</body>
+
+</html>

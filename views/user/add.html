@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="董书华" />
+    <title>学生管理系统 - 添加用户</title>
+    <link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.min.css">
+    <script src="/libs/jquery.js"></script>
+    <script src="/libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/libs/layer/layer.js"></script>
+</head>
+
+<body>
+    
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">学生管理系统 - 添加用户</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="/index.html">
+                            首页
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            用户管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/user/add">添加用户</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/user/list.html">用户列表</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            班级管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/class/add">添加班级</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/class/list.html">班级列表</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            学生管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/student/add">添加学生</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/student/list.html">学生列表</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="dropdown">
+                        <a href="/api/logout">
+                            退出
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <form role="form">
+            <legend>添加用户</legend>
+        
+            <div class="form-group">
+                <label for="loginname">帐号：</label>
+                <input type="text" class="form-control" id="loginname" name="loginname" placeholder="请输入帐号">
+            </div>
+
+            <div class="form-group">
+                <label for="password">密码：(默认：123456)</label>
+                <input type="password" class="form-control" id="password" name="password" value="123456" placeholder="请输入密码">
+            </div>
+        
+            <button type="submit" id="btnAddUser" class="btn btn-primary">保存</button>
+        </form>
+        
+    </div>
+    
+    <script src="/scripts/useradd.js"></script>
+</body>
+
+</html>
